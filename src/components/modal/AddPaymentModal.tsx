@@ -43,12 +43,11 @@ const AddPaymentModal = ({ visible, hide, residentId,addPayment : addPayment2  }
         placeHolder={"Nhập số tiền"}
         label={"Số tiền"} />
       <AppButton label={"Lưu"} onPress={() => {
-        if(Number(paymentAmount)<10000 || paymentAmount.length ==0){
+        if(Number(paymentAmount)<10000 || paymentAmount.length ==0 || isNaN(Number(paymentAmount))){
           Alert.alert("Vui lòng nhập khoản thu hợp lệ!")
           return
         }
-
-           if(residentId){
+        if(residentId){
          dispatch(addPayment({ paymentName, amount: paymentAmount, residentId , addPayment2})).then((res: any) => {
            if (!res.error) {
              console.log(res);
