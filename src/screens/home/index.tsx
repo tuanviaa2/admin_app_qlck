@@ -1,6 +1,6 @@
 import { AppScreenContainer } from "../../layout";
 import { ScrollView, View } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { MenuItem, MenuItemProps } from "./components/MenuItem";
 import { useTheme } from "../../hooks";
 import { images } from "../../assets/images";
@@ -11,6 +11,10 @@ import { AppButton } from "../../components/button/AppButton";
 import { Appbar } from "react-native-paper";
 import { localStorage } from "../../utils/storage";
 import { ChangeThemeModeSwitch } from "../login/components/ChangeThemeModeSwitch";
+import AxiosInstance from "../../utils/AxiosInstance";
+import { useAppDispatch, useAppSelector } from "../../redux";
+import { getNoti } from "../../redux/slices/user.slice";
+import { Notification } from "../../global";
 
 function greeting() {
   const currentHour = new Date().getHours();
@@ -26,6 +30,8 @@ function greeting() {
 }
 
 const HomeScreen = () => {
+  const { user } = useAppSelector(state => state.root.user);
+
   const navigation = useNavigation<AppNavigationProp>();
   const menuItems: MenuItemProps [] = [
     {
@@ -57,7 +63,21 @@ const HomeScreen = () => {
       image: images.menuItem4
     }
   ];
+  const [noti,setNoti]=useState<Notification[]>([])
+  const getRedDot = ()=>{
+    return user.notifications.some(function(noti:any) {
+      return noti.isReading == false;
+    });
+  }
   const { colors } = useTheme();
+  const dispatch = useAppDispatch()
+  useEffect(()=>{
+    AxiosInstance().put('user/readNoti/admin').then(data=>{
+      setNoti(data.data.notifications)
+      dispatch(getNoti(data.data.notifications))
+      console.log(data.data.notifications)
+    })
+  },[])
   return <AppScreenContainer>
     <AppHeader
       title={greeting()}
@@ -68,6 +88,18 @@ const HomeScreen = () => {
           }}
           color={colors.textOnPrimary}
           icon={"bell"} />} />
+          {
+            getRedDot() &&
+             <View
+              style={{width:10,
+                height:10,
+                borderRadius:10
+                ,backgroundColor:'red',
+                position:'absolute',
+                top:40,
+              right:20
+              }}/>
+          }
     <ScrollView style={{ padding: 16 }}>
       <View style={{
         flexDirection: "row",

@@ -18,8 +18,8 @@ const NotiScreen = () => {
   const dispatch = useAppDispatch();
   const readNoti = (id: string) => {
     dispatch(updateNoti(id));
-    axiosInstance().put("user/readNoti" + user.personal_identification_number, { notiId: id }).catch((err) => {
-      console.log("loi")
+    axiosInstance().put("user/readNoti/" + user.personal_identification_number, { notiId: id }).catch((err) => {
+      console.log("loi",{...err})
     });
   };
   console.log(user.notifications)

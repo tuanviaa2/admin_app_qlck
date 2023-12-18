@@ -59,7 +59,7 @@ const PaymentScreen = () => {
                 </Text>
               </View>
               <Text style={styles.text}>
-                {formatCurrencyVietnamese(getPayment(item.payments))}
+               Tổng nợ: {formatCurrencyVietnamese(getPayment(item.payments))}
               </Text>
             </View>
           </TouchableOpacity>;

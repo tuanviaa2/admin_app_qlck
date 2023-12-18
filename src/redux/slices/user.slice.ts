@@ -31,6 +31,12 @@ export const userSlice = createSlice({
     updateUser: (state, action) => {
       const user = action.payload;
       state.user = user;
+    },
+    getNoti: (state, action) => {
+      const noti:any = action.payload ;
+      if(state.user){
+        state.user.notifications= noti
+      }
     }
   },
   extraReducers: builder =>
@@ -47,4 +53,4 @@ export const userSlice = createSlice({
         state.user = data.user;
       })
 });
-export const { updateNoti ,updateUser} = userSlice.actions;
+export const { updateNoti ,updateUser,getNoti} = userSlice.actions;

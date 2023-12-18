@@ -3,7 +3,7 @@ import { localStorage } from "./storage";
 
 const AxiosInstance = (contentType = "application/json") => {
   const axiosInstance = axios.create({
-    baseURL: "http://192.168.1.165:3000/",
+    baseURL: "https://datn-rlw1.onrender.com",
     timeout: 10000
   });
   axiosInstance.interceptors.request.use(
