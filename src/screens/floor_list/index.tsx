@@ -13,6 +13,7 @@ type Floor = {
   name: number,
   rooms: Room[]
 }
+// hiển thị thông tin các tầng
 const FloorScreen = () => {
   const appDispatch = useAppDispatch();
   const navigation = useNavigation<AppNavigationProp>();

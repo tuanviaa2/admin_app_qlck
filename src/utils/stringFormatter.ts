@@ -5,7 +5,8 @@ export function formatDDMMYY(date:Date) {
   const year = date2.getFullYear();
   return `${day}/${month}/${year}`;
 }
-
+//hàm dùng để định dạng tiền vnđ truyền vào số và trả ra chuỗi đã được định dạng tiền vnd
+// 10000 => 10.000 đ
 export function formatCurrencyVietnamese(amount: number): string {
   if (isNaN(amount)) {
     return "Số tiền không hợp lệ";

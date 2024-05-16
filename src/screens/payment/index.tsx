@@ -18,6 +18,8 @@ const PaymentScreen = () => {
   const styles = useStyles(colors);
   const dispatch = useAppDispatch();
   const [residents, setResident] = useState<ResidentInfo[]>([]);
+
+  // lấy tất cả danh sách cư dân ( bên trong thông tn của cư dân chứa khoản nợ của cư dân đó)
   useEffect(() => {
     dispatch(getAllResident((resident: ResidentInfo[]) => {
       setResident(resident);
@@ -27,14 +29,20 @@ const PaymentScreen = () => {
       }
     });
   }, []);
+   //** 
+
+  // hàm tính tổng nợ của 1 cư dân
+  // bao gồm cả khoản đã thanh toán và chwua thanh toán
   const getPayment = (payment: Bill[]) => {
     return payment.reduce((a, b) => {
+      // nếu như khoản nợ chưa thanh toán thì mới cộng vào tổng nợ
       if (!b.isPayment) {
         return a + Number(b.amount);
       }
       return a;
     }, 0);
   };
+  //** 
   return <AppScreenContainer>
     <AppHeader
       showBackButton

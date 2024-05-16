@@ -22,7 +22,6 @@ const NotiScreen = () => {
       console.log("loi",{...err})
     });
   };
-  console.log(user.notifications)
   const styles = useStyles(colors);
   return <AppScreenContainer>
     <AppHeader

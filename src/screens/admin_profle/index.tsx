@@ -24,7 +24,8 @@ const AdminProfileScreen = () => {
   const [phoneNumber, setPhoneNumber] = useState<string>(user.phone_number);
   const [email, setEmail] = useState<string>(user.email);
   const [address, setAddress] = useState<string>(user.permanent_address);
-
+  
+//Hàm kiểm tra tính hợp lệ của các trường thông tin và hiển thị cảnh báo nếu cần.//
   const validateForm = () => {
     if(email.length==0){
       Alert.alert("Vui lòng nhập email")

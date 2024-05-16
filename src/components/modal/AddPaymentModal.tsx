@@ -43,21 +43,25 @@ const AddPaymentModal = ({ visible, hide, residentId,addPayment : addPayment2  }
         placeHolder={"Nhập số tiền"}
         label={"Số tiền"} />
       <AppButton label={"Lưu"} onPress={() => {
+        // thực hiện thêm khoản thu
+        // kiểm tra số tiền có hợp lệ hay không
         if(Number(paymentAmount)<10000 || paymentAmount.length ==0 || isNaN(Number(paymentAmount))){
           Alert.alert("Vui lòng nhập khoản thu hợp lệ!")
           return
         }
+        // kiểm tra nếu k truyền id qua thì thêm tất cả cư dân còn nếu truyền qua thì chỉ thêm cho cư dân có id đó
         if(residentId){
          dispatch(addPayment({ paymentName, amount: paymentAmount, residentId , addPayment2})).then((res: any) => {
            if (!res.error) {
              console.log(res);
-             // hide();
            }
          })
       }else {
+        // bật tắt loading
          dispatch(showLoading())
          AxiosInstance().put('user/addPaymentToAllResidents',{paymentName,amount:paymentAmount}).then(res=>{
-           Alert.alert("Thành công","Đã thêm thành công khoản thu cho toàn bộ dân cư");
+       // show thông baso
+          Alert.alert("Thành công","Đã thêm thành công khoản thu cho toàn bộ dân cư");
          }).finally(()=>{
             dispatch(offLoading())
          })

@@ -19,6 +19,7 @@ const ResidentScreen = () => {
   const navigation = useNavigation<AppNavigationProp>();
   const dispatch = useAppDispatch();
   const [residents, setResident] = useState<ResidentInfo[]>([]);
+  // lay danh sach cu dan tu sever do vao danh sach
   useEffect(() => {
     dispatch(getAllResident((resident: ResidentInfo[]) => {
       setResident(resident)
@@ -29,6 +30,9 @@ const ResidentScreen = () => {
       }
     });
   }, []);
+//
+
+// tim kiem cu dan 
   useEffect(() => {
     if (searchQ === "") {
       setSearchResident(residents);
@@ -38,6 +42,7 @@ const ResidentScreen = () => {
       }));
     }
   }, [searchQ]);
+  
   const styles = useStyles(colors);
   return <AppScreenContainer>
     <AppHeader
